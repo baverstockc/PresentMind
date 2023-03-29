@@ -5,49 +5,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Node.js GPT-3.5 Chat</title>
+  <title>Gift Assistant</title>
   <style>
     body { font-family: Arial, sans-serif; }
-    input[type="text"] { width: 100%; padding: 10px; }
+    input[type="text"], input[type="number"], textarea, select { width: 100%; padding: 10px; margin-bottom: 10px; }
     button { padding: 10px; }
   </style>
 </head>
 <body>
-  <h1>Node.js GPT-3.5 Chat</h1>
-  <form id="chat-form">
-    <input type="text" id="user-message" placeholder="Type your message...">
-    <button type="submit">Send</button>
+  <h1>Personalized Gift Assistant</h1>
+  <p>Use the following form to generate ideas for the person you are wanting to purchase a gift for. You can provide as much detail as you like in each of the form fields.</p>
+  <form id="gift-form">
+    <label for="user-name">Their Name:</label>
+    <input type="text" id="name" placeholder="Enter their name">
+    
+    <label for="user-age">Their Age:</label>
+    <input type="number" id="age" placeholder="Enter their age">
+
+    <label for="region">Their region:</label>
+    <select id="region">
+      <option value="uk">UK</option>
+      <option value="eu">EU</option>
+      <option value="usa">USA</option>
+    </select>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" placeholder="The country or district that they live in, for local business options">
+
+    <label for="budget">Budget range:</label>
+    <input type="number" id="budget" placeholder="Enter your maximum budget" step="any" min="0">
+
+    <label for="hobbies-interests">Hobbies and interests:</label>
+    <input type="text" id="hobbies-interests" placeholder="Describe the recipient's hobbies and interests">
+
+    <label for="allergies">Allergies or dietary restrictions:</label>
+    <input type="text" id="allergies" placeholder="Enter any allergies or dietary restrictions">
+
+    <label for="gift-type">Gift type preference:</label>
+    <select id="gift-type">
+      <option value="experiences">Experiences</option>
+      <option value="physical">Physical Items</option>
+      <option value="sentimental">Sentimental Gifts</option>
+      <option value="no preference">No preference</option>
+    </select>
+
+    <label for="relationship">Relationship:</label>
+    <input type="text" id="relationship" placeholder="Describe your relationship with the recipient">
+
+    <label for="delivery-method">Delivery method:</label>
+    <select id="delivery-method">
+      <option value="in-person">In-person</option>
+      <option value="mail">By mail</option>
+      <option value="surprise">As a surprise</option>      
+      <option value="any">Any delivery method</option>
+    </select>
+
+    <label for="current-needs">Recipient's current needs, desires or current situation:</label>
+    <input type="text" id="current-needs" placeholder="Enter any specific needs or desires">
+
+    <label for="time-constraints">Time constraints:</label>
+    <input type="text" id="time-constraints" placeholder="Enter your timeframe for purchasing the gift">
+
+    <label for="anything-else">Anything else you want to add?</label>
+    <textarea id="anything-else" rows="4" placeholder="Any other information that will help us provide something ideal for your giftee?"></textarea>
+
+    <button type="submit">Find Gift Ideas</button>
   </form>
-  <div id="chat-log"></div>
+  <div id="gift-suggestions"></div>
 
   <script>
-    const chatForm = document.getElementById('chat-form');
-    const chatLog = document.getElementById('chat-log');
-    const userMessage = document.getElementById('user-message');
+    const giftForm = document.getElementById('gift-form');
+    const giftSuggestions = document.getElementById('gift-suggestions');
 
-    chatForm.addEventListener('submit', async (e) => {
+    giftForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const message = userMessage.value.trim();
-      if (!message) return;
+      const formData = {
+        name: document.getElementById('name').value,
+        age: document.getElementById('age').value,
+        region: document.getElementById('region').value,
+        location: document.getElementById('location').value,
+        budget: document.getElementById('budget').value,
+        hobbiesInterests: document.getElementById('hobbies-interests').value,
+        allergies: document.getElementById('allergies').value,
+        giftType: document.getElementById('gift-type').value,
+        relationship: document.getElementById('relationship').value,
+        deliveryMethod: document.getElementById('delivery-method').value,
+        currentNeeds: document.getElementById('current-needs').value,
+        timeConstraints: document.getElementById('time-constraints').value,
+        anythingElse: document.getElementById('anything-else').value
+        };
 
-      chatLog.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
-      userMessage.value = '';
+        const message = `
+        Name: ${formData.name}
+        Age: ${formData.age}
+        Region: ${formData.region}
+        Location: ${formData.location}
+        Budget: ${formData.budget}
+        Personal tastes: ${formData.personalTastes}
+        Allergies or dietary restrictions: ${formData.allergies}
+        Gift type preference: ${formData.giftType}
+        Relationship: ${formData.relationship}
+        Special memories: ${formData.specialMemories}
+        Delivery method: ${formData.deliveryMethod}
+        Current needs or desires: ${formData.currentNeeds}
+        Time constraints: ${formData.timeConstraints}
+        Anything else: ${formData.anythingElse}`;
 
-      try {
+        try {
         const response = await fetch('/ask', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ question: message }),
         });
 
-    const data = await response.json();
-    chatLog.innerHTML += `<p><strong>AI:</strong> ${data.answer}</p>`;
-    } catch (error) {
-    console.error(error);
-    chatLog.innerHTML += '<p><strong>Error:</strong> Something went wrong.</p>';
-    }
-    });
+        const data = await response.json();
+        giftSuggestions.innerHTML = `<p><strong>AI Suggestions:</strong><br> ${data.answer.replace(/\n/g, '<br>')}</p>`;
+        } catch (error) {
+        console.error(error);
+        giftSuggestions.innerHTML = '<p><strong>Error:</strong> Something went wrong.</p>';
+        }
+        });
     </script>
-</body>
-</html>
+  </body>
+  </html>
