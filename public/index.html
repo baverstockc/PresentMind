@@ -1,0 +1,53 @@
+<!-- public/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node.js GPT-3.5 Chat</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    input[type="text"] { width: 100%; padding: 10px; }
+    button { padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Node.js GPT-3.5 Chat</h1>
+  <form id="chat-form">
+    <input type="text" id="user-message" placeholder="Type your message...">
+    <button type="submit">Send</button>
+  </form>
+  <div id="chat-log"></div>
+
+  <script>
+    const chatForm = document.getElementById('chat-form');
+    const chatLog = document.getElementById('chat-log');
+    const userMessage = document.getElementById('user-message');
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const message = userMessage.value.trim();
+      if (!message) return;
+
+      chatLog.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+      userMessage.value = '';
+
+      try {
+        const response = await fetch('/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: message }),
+        });
+
+    const data = await response.json();
+    chatLog.innerHTML += `<p><strong>AI:</strong> ${data.answer}</p>`;
+    } catch (error) {
+    console.error(error);
+    chatLog.innerHTML += '<p><strong>Error:</strong> Something went wrong.</p>';
+    }
+    });
+    </script>
+</body>
+</html>
