@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/007e6c43-a6eb-4db4-8766-1e175d0de289/resourceGroups/presentmind_group-b109/providers/Microsoft.Web/sites/presentmind",
+    "appService.deploySubpath": "."
+}
