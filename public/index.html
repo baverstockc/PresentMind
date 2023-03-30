@@ -10,6 +10,20 @@
     body { font-family: Arial, sans-serif; }
     input[type="text"], input[type="number"], textarea, select { width: 100%; padding: 10px; margin-bottom: 10px; }
     button { padding: 10px; }
+
+    .spinner {
+      display: inline-block;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #000;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -63,22 +77,28 @@
     <label for="current-needs">Recipient's current needs, desires or current situation:</label>
     <input type="text" id="current-needs" placeholder="Enter any specific needs or desires">
 
-    <label for="time-constraints">Time constraints:</label>
-    <input type="text" id="time-constraints" placeholder="Enter your timeframe for purchasing the gift">
+    <label for="occasion">Occasion:</label>
+    <input type="text" id="occasion" placeholder="Whats the occasion or reason for the gift?">
 
     <label for="anything-else">Anything else you want to add?</label>
     <textarea id="anything-else" rows="4" placeholder="Any other information that will help us provide something ideal for your giftee?"></textarea>
 
-    <button type="submit">Find Gift Ideas</button>
+    <button type="submit" id="submit"><span class="spinner" id="spinner" style="display:none;"></span>Find Gift Ideas</button>
   </form>
   <div id="gift-suggestions"></div>
 
   <script>
     const giftForm = document.getElementById('gift-form');
+    const submit = document.getElementById('submit');
     const giftSuggestions = document.getElementById('gift-suggestions');
 
     giftForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = 'inline-block';
+      submit.disabled = true;
+      giftForm.disabled = true;
 
       const formData = {
         name: document.getElementById('name').value,
@@ -92,7 +112,7 @@
         relationship: document.getElementById('relationship').value,
         deliveryMethod: document.getElementById('delivery-method').value,
         currentNeeds: document.getElementById('current-needs').value,
-        timeConstraints: document.getElementById('time-constraints').value,
+        occasion: document.getElementById('occasion').value,
         anythingElse: document.getElementById('anything-else').value
         };
 
@@ -109,7 +129,7 @@
         Special memories: ${formData.specialMemories}
         Delivery method: ${formData.deliveryMethod}
         Current needs or desires: ${formData.currentNeeds}
-        Time constraints: ${formData.timeConstraints}
+        Occasion: ${formData.occasion}
         Anything else: ${formData.anythingElse}`;
 
         try {
@@ -124,6 +144,11 @@
         } catch (error) {
         console.error(error);
         giftSuggestions.innerHTML = '<p><strong>Error:</strong> Something went wrong.</p>';
+        }
+        finally {
+          spinner.style.display = 'none';
+          giftForm.disabled = false;
+          submit.disabled = false;
         }
         });
     </script>
