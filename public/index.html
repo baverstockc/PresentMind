@@ -122,7 +122,7 @@
         Region: ${formData.region}
         Location: ${formData.location}
         Budget: ${formData.budget}
-        Personal tastes: ${formData.personalTastes}
+        Hobbies and interests tastes: ${formData.hobbiesInterests}
         Allergies or dietary restrictions: ${formData.allergies}
         Gift type preference: ${formData.giftType}
         Relationship: ${formData.relationship}
@@ -140,7 +140,7 @@
         });
 
         const data = await response.json();
-        giftSuggestions.innerHTML = `<p><strong>AI Suggestions:</strong><br> ${data.answer.replace(/\n/g, '<br>')}</p>`;
+        giftSuggestions.innerHTML = `<p><strong>Gift Suggestions:</strong><br> ${data.answer.replace(/\n/g, '<br>')}</p><p>If your answer isn't quite right, try changing your criteria and re-submitting.</p>`;
         } catch (error) {
         console.error(error);
         giftSuggestions.innerHTML = '<p><strong>Error:</strong> Something went wrong.</p>';
