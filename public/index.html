@@ -71,54 +71,66 @@
       <label for="hobbies-interests" class="form-label">Hobbies and interests:<span class="text-danger">*</span></label>
       <input required type="text" id="hobbies-interests" class="form-control" placeholder="Describe the recipient's hobbies and interests">
     </div>
+    <!-- Optional form fields start-->
+    <p>
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#optional-fields" aria-expanded="false" aria-controls="optional-fields">
+        Add more detail (will help with a better result)
+      </button>
+    </p>
 
-    <div class="mb-3">
-      <label for="allergies" class="form-label">Allergies or dietary restrictions:</label>
-      <input type="text" id="allergies" class="form-control" placeholder="Enter any allergies or dietary restrictions">
+    <div class="collapse" id="optional-fields">
+      <div class="card card-body">
+        <div class="mb-3">
+          <label for="allergies" class="form-label">Allergies or dietary restrictions:</label>
+          <input type="text" id="allergies" class="form-control" placeholder="Enter any allergies or dietary restrictions">
+        </div>
+    
+        <div class="mb-3">
+          <label for="gift-type" class="form-label">Gift type preference:</label>
+          <select id="gift-type" class="form-select">
+            <option value="experiences">Experiences</option>
+            <option value="physical">Physical Items</option>
+            <option value="sentimental">Sentimental Gifts</option>
+            <option value="no preference">No preference</option>
+          </select>
+        </div>
+    
+        <div class="mb-3">
+          <label for="relationship" class="form-label">Relationship:</label>
+          <input type="text" id="relationship" class="form-control" placeholder="Describe your relationship with the recipient">
+        </div>
+    
+        <div class="mb-3">
+          <label for="delivery-method" class="form-label">Delivery method:</label>
+          <select id="delivery-method" class="form-select">
+            <option value="in-person">In-person</option>
+            <option value="mail">By mail</option>
+            <option value="surprise">As a surprise</option>
+            <option value="any">Any delivery method</option>
+          </select>
+        </div>
+    
+        <div class="mb-3">
+          <label for="current-needs" class="form-label">What's one thing that would make the recipient's life happier?:</label>
+          <input type="text" id="current-needs" class="form-control" placeholder="Are they struggling with anything right now? What could they do with more of?">
+        </div>
+    
+        <div class="mb-3">
+          <label for="occasion" class="form-label">Occasion:</label>
+          <input type="text" id="occasion" class="form-control" placeholder="What's the occasion or reason for the gift?">
+        </div>
+    
+        <div>
+          <label for="anything-else" class="form-label">Anything else you want to add?</label>
+          <textarea id="anything-else" rows="4" class="form-control" placeholder="Any other information that will help us provide something ideal for your recipient?"></textarea>
+        </div>
+      </div>
     </div>
 
-    <div class="mb-3">
-      <label for="gift-type" class="form-label">Gift type preference:</label>
-      <select id="gift-type" class="form-select">
-        <option value="experiences">Experiences</option>
-        <option value="physical">Physical Items</option>
-        <option value="sentimental">Sentimental Gifts</option>
-        <option value="no preference">No preference</option>
-      </select>
-    </div>
+    <!-- Optional form fields end-->
 
-    <div class="mb-3">
-      <label for="relationship" class="form-label">Relationship:</label>
-      <input type="text" id="relationship" class="form-control" placeholder="Describe your relationship with the recipient">
-    </div>
-
-    <div class="mb-3">
-      <label for="delivery-method" class="form-label">Delivery method:</label>
-      <select id="delivery-method" class="form-select">
-        <option value="in-person">In-person</option>
-        <option value="mail">By mail</option>
-        <option value="surprise">As a surprise</option>
-        <option value="any">Any delivery method</option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="current-needs" class="form-label">What's one thing that would make the recipient's life happier?:</label>
-      <input type="text" id="current-needs" class="form-control" placeholder="Are they struggling with anything right now? What could they do with more of?">
-    </div>
-
-    <div class="mb-3">
-      <label for="occasion" class="form-label">Occasion:</label>
-      <input type="text" id="occasion" class="form-control" placeholder="What's the occasion or reason for the gift?">
-    </div>
-
-    <div class="mb-3">
-      <label for="anything-else" class="form-label">Anything else you want to add?</label>
-      <textarea id="anything-else" rows="4" class="form-control" placeholder="Any other information that will help us provide something ideal for your recipient?"></textarea>
-    </div>
-
-    <div class="text-center mb-5">
-      <button type="submit" id="submit" class="btn btn-primary btn-lg">
+    <div class="text-right mb-5 mt-5">
+      <button type="submit" id="submit" class="btn btn-lg btn-success">
         <span class="spinner" id="spinner" style="display:none;"></span>Find Gift Ideas
       </button>
     </div>
@@ -215,7 +227,7 @@
         });
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
   </body>
   </html>

@@ -22,7 +22,7 @@ app.post('/ask', async (req, res) => {
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
-        messages: [{ role: 'user', content: 'Provide a gift or set of gifts that is personalised using the following details. The person providing the information is the person purchasing the gift. Use currency and gifts appropriate to the location used. The name provided is the name of the receipient, so use that in your response. If you noticed the input seems different to what you would expect, ask them to re-enter. Dont suggest personalised mugs. Use spelling and grammar appropriate to UK/British english. Here is the criteria:' + userQuestion }],
+        messages: [{ role: 'user', content: 'Provide a gift or set of gifts that is personalised using the following details. The person providing the information is the person purchasing the gift. Use currency and gifts appropriate to the location used. The name provided is the name of the receipient, so use that in your response. If you noticed the input seems different to what you would expect, ask them to re-enter. Dont suggest personalised mugs. Use spelling and grammar appropriate to UK/British english. Dont repeat what the user has entered in the form directly, make it seem like youve thought about the solution. Here is the criteria:' + userQuestion }],
         model: 'gpt-3.5-turbo',
         max_tokens: 500,
       },
